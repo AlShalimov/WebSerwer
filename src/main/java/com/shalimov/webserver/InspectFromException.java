@@ -11,8 +11,8 @@ public class InspectFromException {
     }
 
     public static boolean inspectPathIsExisted(File resource) throws FileNotFoundException {
-        if (!resource.exists()){
-            throw new FileNotFoundException("File is not found");
+        if (!resource.exists()) {
+            throw new FileNotFoundException("File is not found: " + resource);
         }
         return resource.exists();
     }

@@ -1,4 +1,5 @@
 package com.shalimov.webserver.request;
+
 import com.shalimov.webserver.entity.HttpMethod;
 import com.shalimov.webserver.entity.Request;
 import com.shalimov.webserver.entity.ServerException;
@@ -29,7 +30,7 @@ public class RequestParser {
             return request;
 
         } catch (IOException e) {
-            throw new ServerException( BAD_REQUEST);
+            throw new ServerException(BAD_REQUEST);
         }
     }
 
@@ -37,7 +38,6 @@ public class RequestParser {
         String requestStartLine = reader.readLine();
         inspectRequestStartLine(requestStartLine);
         String[] requestStartLineElements = requestStartLine.split(" ");
-
         String requestHttpMethod = requestStartLineElements[0];
         for (HttpMethod httpMethod : HttpMethod.values()) {
             if (requestHttpMethod.equals(httpMethod.getDescription())) {
@@ -53,9 +53,7 @@ public class RequestParser {
 
     static void injectHeaders(BufferedReader reader, Request request) throws IOException {
         Map<String, String> headers = new HashMap<>();
-
         String headerLine;
-
         while ((headerLine = reader.readLine()) != null) {
             if (headerLine.isEmpty()) {
                 break;
@@ -65,5 +63,4 @@ public class RequestParser {
         }
         request.setHeaders(headers);
     }
-
 }

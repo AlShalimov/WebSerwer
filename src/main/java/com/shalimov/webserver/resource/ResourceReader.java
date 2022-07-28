@@ -1,9 +1,7 @@
 package com.shalimov.webserver.resource;
 
-
 import java.io.*;
-
-
+import java.util.Objects;
 
 import static com.shalimov.webserver.InspectFromException.inspectContentFromResource;
 import static com.shalimov.webserver.InspectFromException.inspectPathIsExisted;
@@ -18,8 +16,16 @@ public class ResourceReader {
 
     public byte[] readResource(String uri) throws IOException {
         File resource = new File(webappPath, uri);
+        if (!resource.isFile()) {
+            File[] fileList = resource.listFiles();
+            for (int i = 0; i < Objects.requireNonNull(fileList).length; i++) {
+                if(fileList[i].isFile()){
+                    resource=fileList[i];
+                    break;
+                }
+            }
+        }
         inspectPathIsExisted(resource);
-
         try (InputStream byteContentInputStream = new BufferedInputStream(new FileInputStream(resource))) {
             return readContent(byteContentInputStream);
         }

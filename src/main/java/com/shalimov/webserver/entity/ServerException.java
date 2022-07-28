@@ -1,14 +1,14 @@
 package com.shalimov.webserver.entity;
 
-public class ServerException extends RuntimeException{
+public class ServerException extends RuntimeException {
     private StatusCode statusCode;
 
     public ServerException(StatusCode statusCode) {
         this.statusCode = statusCode;
     }
 
-    public ServerException(String message, Throwable cause, StatusCode statusCode) {
-        super(message, cause);
+    public ServerException(Throwable cause, StatusCode statusCode) {
+        super(cause);
         this.statusCode = statusCode;
     }
 
